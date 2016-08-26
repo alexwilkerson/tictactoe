@@ -56,13 +56,10 @@ function tie() {
 
 function minimax(depth) {
   var move;
-  var howManyTimes = 0;
   mmRecursive(board, "X", 0, depth);
   board[move] = computerSymbol;
-  console.log("called function " + howManyTimes + " times.");
 
   function mmRecursive(tempBoard, tempPlayer, currentDepth, maxDepth) {
-    howManyTimes++;
     if (win(tempBoard) === computerSymbol) {
       return 10-currentDepth;
     } else if (win(tempBoard) === playerSymbol) {
@@ -93,11 +90,7 @@ function minimax(depth) {
 
     // actual turn computer takes
     if (currentDepth === 0) {
-      console.log(moves);
-      console.log(moves[scores.indexOf(Math.max.apply(null, scores))]);
       move = moves[scores.indexOf(Math.max.apply(null, scores))];
-      console.log(scores);
-      console.log(move);
     } else {
       // reached a draw state
       if (moves.length === 0) {
@@ -208,7 +201,6 @@ function check(testBoard, place1, place2, place3) {
 
 // board[Math.floor(Math.random()*9)] = computerSymbol;
 updateBoard();
-console.log(win(board));
 
 $("#button0").click(function(){playerClick(0);});
 $("#button1").click(function(){playerClick(1);});
