@@ -9,13 +9,14 @@ body {
 .container {
   max-width: 600px;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .board {
   width: 100%;
   height: 0;
   padding-bottom: 100%;
-  margin: 10px auto;
+  margin: 30px auto 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
