@@ -1,0 +1,60 @@
+html, body {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000E1B;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.board {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-image: url("board.svg");
+  background-repeat: no-repeat;
+  justify-content: space-between;
+}
+
+.o {
+  width: 27%;
+  background: transparent;
+  background-image: url("o.svg");
+  background-repeat: no-repeat;
+  border: none;
+  padding: 1%;
+  padding-bottom: 33%;
+  flex-grow: 1;
+  margin: 1% 3% 0 3%;
+}
+
+.x {
+  width: 27%;
+  background: transparent;
+  background-image: url("x.svg");
+  background-repeat: no-repeat;
+  border: none;
+  padding: 1%;
+  padding-bottom: 33%;
+  flex-grow: 1;
+  margin: 1% 3% 0 3%;
+}
+
+.e {
+  cursor: pointer;
+  background: transparent;
+  width: 27%;
+  border: none;
+  padding: 1%;
+  padding-bottom: 33%;
+  flex-grow: 1;
+  margin: 1% 3% 0 3%;
+}
