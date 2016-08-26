@@ -143,6 +143,26 @@ body {
   top: 50px;
 }
 
+.win-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000E1B;
+}
+
+.win-screen-container {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 50px;
+  font-size: 1.5em;
+  line-height: 1.4em;
+  color: #70CAEB;
+}
+
 .hidden {
   position: absolute;
   height: 1px;
