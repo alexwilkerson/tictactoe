@@ -284,5 +284,7 @@ $("#choose-o").click(function() {
   $(".board").removeClass("hidden");
 });
 
-// a ^ represents a page break and a pause
-typeIntro("SHALL WE PLAY A GAME?^A STRANGE GAME.%THE ONLY WINNING MOVE IS%NOT TO PLAY.");
+$(document).ready(function() {
+  // a ^ represents a page break and a pause
+  typeIntro("SHALL WE PLAY A GAME?^A STRANGE GAME.%THE ONLY WINNING MOVE IS%NOT TO PLAY.");
+});
