@@ -27,7 +27,7 @@ function playerClick(button) {
 function computerTurn() {
   currentPlayer = "computer";
   //minimax make a move, then return control to player
-  minimax(20);
+  minimax();
   updateBoard();
   if (win(board) === computerSymbol) {
     computerWin();
@@ -54,12 +54,12 @@ function tie() {
   return false;
 }
 
-function minimax(depth) {
+function minimax() {
   var move;
-  mmRecursive(board, "X", 0, depth);
+  mmRecursive(board, "X", 0);
   board[move] = computerSymbol;
 
-  function mmRecursive(tempBoard, tempPlayer, currentDepth, maxDepth) {
+  function mmRecursive(tempBoard, tempPlayer, currentDepth) {
     if (win(tempBoard) === computerSymbol) {
       return 10-currentDepth;
     } else if (win(tempBoard) === playerSymbol) {
@@ -84,7 +84,7 @@ function minimax(depth) {
       if (newBoard[i] === "E") {
         newBoard[i] = tempPlayer;
         moves.push(i);
-        scores.push(mmRecursive(newBoard, tempPlayer, currentDepth+1, maxDepth));
+        scores.push(mmRecursive(newBoard, tempPlayer, currentDepth+1));
       } 
     }   
 
