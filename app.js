@@ -1,3 +1,5 @@
+var pageState = "intro";
+
 var whoWentFirst = "player";
 var currentPlayer = "player";
 var playerSymbol = "X";
@@ -199,7 +201,39 @@ function check(testBoard, place1, place2, place3) {
   }
 }
 
-// board[Math.floor(Math.random()*9)] = computerSymbol;
+function typeIntro(introString) {
+  if (pageState === "intro") {
+    if (introString[0] === "%") {
+      setTimeout(function() {
+        $(".intro-container").append("<br>");
+        if (introString.slice(1) === "") {
+          return 1;
+        } else {
+          typeIntro(introString.slice(1));
+        }
+      }, 400);
+    } else if (introString[0] === "^") {
+      setTimeout(function() {
+        $(".intro-container").append("<br><br><br><br>");
+        if (introString.slice(1) === "") {
+          return 1;
+        } else {
+          typeIntro(introString.slice(1));
+        }
+      }, 1000);
+    } else {
+      setTimeout(function() {
+        $(".intro-container").append(introString[0]);
+        if (introString.slice(1) === "") {
+          return 1;
+        } else {
+          typeIntro(introString.slice(1));
+        }
+      }, 40);
+    }
+  }
+}
+
 updateBoard();
 
 $("#button0").click(function(){playerClick(0);});
@@ -211,3 +245,18 @@ $("#button5").click(function(){playerClick(5);});
 $("#button6").click(function(){playerClick(6);});
 $("#button7").click(function(){playerClick(7);});
 $("#button8").click(function(){playerClick(8);});
+
+$(".intro").click(function() {
+  pageState = "choose-symbol";
+  $(this).addClass("hidden");
+  $(".choose-symbol").removeClass("hidden");
+});
+
+$(".choose-symbol").click(function() {
+  pageState = "game";
+  $(this).addClass("hidden");
+  $(".board").removeClass("hidden");
+});
+
+// a ^ represents a page break and a pause
+typeIntro("SHALL WE PLAY A GAME?^A STRANGE GAME.%THE ONLY WINNING MOVE IS%NOT TO PLAY.");

@@ -1,9 +1,15 @@
+@font-face {
+  font-family: "Shaston";
+  src: url("ShastonHi640.ttf") format("truetype");
+}
+
 html, body {
   box-sizing: border-box;
 }
 
 body {
   background-color: #000E1B;
+  font-family: "Shaston", "Lucida Console", Monaco, monospace;
 }
 
 .container {
@@ -62,4 +68,52 @@ body {
 
 .place:focus {
   outline: none;
+}
+
+.intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000E1B;
+}
+
+.intro-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 50px;
+  font-size: 1.5em;
+  line-height: 1.4em;
+  color: #70CAEB;
+}
+
+.choose-symbol {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000E1B;
+}
+
+.choose-symbol-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 50px;
+  font-size: 1.5em;
+  line-height: 1.4em;
+  color: #70CAEB;
+}
+
+.hidden {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  clip: rect(1px, 1px, 1px, 1px);
 }
