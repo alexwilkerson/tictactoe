@@ -1,3 +1,4 @@
+var whoWentFirst = "player";
 var currentPlayer = "player";
 var playerSymbol = "X";
 var computerSymbol = "O";
@@ -63,9 +64,9 @@ function minimax(depth) {
   function mmRecursive(tempBoard, tempPlayer, currentDepth, maxDepth) {
     howManyTimes++;
     if (win(tempBoard) === computerSymbol) {
-      return 10;
+      return 10-currentDepth;
     } else if (win(tempBoard) === playerSymbol) {
-      return -10;
+      return currentDepth-10;
     }
 
     var moves = [];
@@ -86,27 +87,6 @@ function minimax(depth) {
       if (newBoard[i] === "E") {
         newBoard[i] = tempPlayer;
         moves.push(i);
-        /*
-        if (win(newBoard) === tempPlayer && tempPlayer === computerSymbol) {
-          if (currentDepth === 0) {
-            move = i;
-            return;
-          }
-          return 10-currentDepth;
-        } else if (win(newBoard) === tempPlayer && tempPlayer === playerSymbol) {
-          if (currentDepth === 1) {
-            move = i;
-            return;
-          }
-          console.log("player win");
-          return currentDepth-10;
-        }*/
-        if (currentDepth === 0) {
-          if (win(newBoard) === computerSymbol) {
-            move = i;
-            return;
-          }
-        }
         scores.push(mmRecursive(newBoard, tempPlayer, currentDepth+1, maxDepth));
       } 
     }   
@@ -135,192 +115,51 @@ function minimax(depth) {
   }
 }
 
-/*
-function minimax() {
-  var boardArrayScore = [];
-  var boardArrayPosition = [];
-  var lookAhead = 9;
-  
-  for (var i = 0; i < 9; i++) {
-    if (board[i] === "E") {
-      boardArrayScore.push(0);
-      boardArrayPosition.push(i);
-    }
-  }
-*/
-  /*
-  for (var i = 0; i < 9; i++) {
-    var tempBoard = board.slice();
-    if (board[i] === "E") {
-      tempBoard[i] = computerSymbol;
-      if (win(tempBoard) === computerSymbol) {
-        board[i] = computerSymbol;
-        updateBoard();
-        computerWin();
-        return;
-      }
-      boardArray.push(tempBoard);
-      boardArrayScore.push(0);
-    }
-  }
-  */
-
-/*
-  for (var i = 0; i < boardArray.length; i++) {
-    minimaxRecursion(boardArray[i], boardArrayScore[i], playerSymbol, 0);
-  }
-  minimaxRecursion(board, playerSymbol, 0);
-
-  function minimaxRecursion(boardState, tmpPlayer, lookAheadCount) {
-    var tmpBoardArray = [];
-
-    if (lookAheadCount === lookAhead) {
-      return;
-    }
-
-    if (tmpPlayer === "X") {
-      tmpPlayer = "O";
-    } else {
-      tmpPlayer = "X";
-    }
-
-    for (var i = 0; i < 9; i++) {
-      var tmpBoard = boardState.slice();
-      if (tmpBoard[i] === "E") {
-        tmpBoard[i] = tmpPlayer;
-        if (win(tmpBoard) === tmpPlayer && tmpPlayer === playerSymbol && boardArrayScore[boardArrayPosition.indexOf(i)] === 0) {
-          boardArrayScore[boardArrayPosition.indexOf(i)] = -10 + lookAheadCount - 1;
-          return
-        } else if (win(tmpBoard) === tmpPlayer && tmpPlayer === computerSymbol) {
-          boardArrayScore[boardArrayPosition.indexOf(i)] = 10 - lookAheadCount;
-          return
-        } else {
-          tmpBoardArray.push(tmpBoard);
-        }
-      }
-    }
-
-    if (tmpBoardArray.length === 0) {
-      return;
-    }
-
-    for (var i = 0; i < tmpBoardArray.length; i++) {
-      minimaxRecursion(tmpBoardArray[i], tmpPlayer, lookAheadCount+1);
-    }
-  }
-
-  console.log(boardArrayScore);
-  console.log(boardArrayPosition);
-
-  var highest = Math.max.apply(Math, boardArrayScore);
-  var lowest = Math.min.apply(Math, boardArrayScore);
-
-  var index = (Math.abs(lowest) > Math.abs(highest)) ? lowest : highest; 
-
-  board[boardArrayPosition[boardArrayScore.indexOf(index)]] = computerSymbol;
-  updateBoard();
-
-
-
-  // cut off.. return here
-
-}
-
-
- /* 
-  function minimaxRecursion(newBoard, tmpScoreArray, tmpPlayer) {
-    if (tmpScoreArray.indexOf(1)) {
-      return;
-    }
-    var tmpBoardArray = [];
-    if (tmpPlayer === "X") {
-      tmpPlayer = "O";
-    } else {
-      tmpPlayer = "X";
-    }
-    for (var i = 0; i < 9; i++) {
-      var tmpBoard = newBoard.slice();
-      if (tmpBoard[i] === "E") {
-        tmpBoard[i] = tmpPlayer;
-        if (win(tmpBoard) === tmpPlayer && tmpPlayer !== computerSymbol) {
-          tmpScoreArray[i]-=1;
-        } else if (win(tmpBoard) === tmpPlayer && tmpPlayer === computerSymbol) {
-          tmpScoreArray[i]+=1;
-        }
-        tmpBoardArray.push(tmpBoard);
-      }
-    }
-    for (var i = 0; i < tmpBoardArray.length; i++) {
-      if (tmpScoreArray[i] === -1) {
-        tmpBoardArray.splice(i, 1);
-        i--;
-      }
-    }
-    for (var i = 0; i < tmpBoardArray.length;)
-  }
-
-}
-
-  /*
-
-  for (var i = 0; i < boardArray.length; i++) {
-    boardArrayScore.push(minimaxRecursion(boardArray[i], turnsLeft));
-  }
-
-  console.log(boardArrayScore);
-
-  whichBoard = boardArrayScore[0];
-  for (var i = 1; i < boardArrayScore.length; i++) {
-    if (boardArrayScore[i] > whichBoard) {
-      whichBoard = boardArrayScore[i];
-    }
-  }
-
-  board = boardArray[whichBoard];
-
-  function minimaxRecursion (testBoard, iteration) {
-    if (iteration === 0) {
-      return 0;
-    }
-    if (win(testBoard) === computerSymbol) {
-      return 10+iteration;
-    } else if (win(testBoard) === playerSymbol) {
-      return -10-iteration;
-    } else {
-      return minimaxRecursion(testBoard, iteration-1);
-    }
-  }
-
-}
-*/
-
 function tieWin() {
   alert("tie!");
-  currentPlayer = "player";
   board = ["E", "E", "E",
            "E", "E", "E", 
            "E", "E", "E"];
-  board[Math.floor(Math.random()*9)] = computerSymbol;
+  if (whoWentFirst === "player") {
+    whoWentFirst = "computer)";
+    currentPlayer = "computer";
+    board[Math.floor(Math.random()*9)] = computerSymbol;
+  } else {
+    whoWentFirst = "player";
+  }
+  currentPlayer = "player";
   updateBoard();
 }
 
 function computerWin() {
   alert("computer won");
-  currentPlayer = "player";
   board = ["E", "E", "E",
            "E", "E", "E", 
            "E", "E", "E"];
-  board[Math.floor(Math.random()*9)] = computerSymbol;
+  if (whoWentFirst === "player") {
+    whoWentFirst = "computer)";
+    currentPlayer = "computer";
+    board[Math.floor(Math.random()*9)] = computerSymbol;
+  } else {
+    whoWentFirst = "player";
+  }
+  currentPlayer = "player";
   updateBoard();
 }
 
 function playerWin() {
   alert("you win");
-  currentPlayer = "player";
   board = ["E", "E", "E",
            "E", "E", "E", 
            "E", "E", "E"];
-  board[Math.floor(Math.random()*9)] = computerSymbol;
+  if (whoWentFirst === "player") {
+    whoWentFirst = "computer)";
+    currentPlayer = "computer";
+    board[Math.floor(Math.random()*9)] = computerSymbol;
+  } else {
+    whoWentFirst = "player";
+  }
+  currentPlayer = "player";
   updateBoard();
 }
 
@@ -360,15 +199,14 @@ function win(testBoard) {
 }
 
 function check(testBoard, place1, place2, place3) {
-  if (testBoard[place1] === "E" || testBoard[place2] === "E" || testBoard[place3] === "E" ||
-      board[place1] !== testBoard[place2] || testBoard[place2] !== testBoard[place3]) {
-    return "E";
-  } else {
+  if (testBoard[place1] !== "E" && testBoard[place1] === testBoard[place2] && testBoard[place1] === testBoard[place3]){
     return testBoard[place1];
+  } else {
+    return "E";
   }
 }
 
-board[Math.floor(Math.random()*9)] = computerSymbol;
+// board[Math.floor(Math.random()*9)] = computerSymbol;
 updateBoard();
 console.log(win(board));
 
