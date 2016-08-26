@@ -2,8 +2,8 @@ var pageState = "intro";
 
 var whoWentFirst = "player";
 var currentPlayer = "player";
-var playerSymbol = "X";
-var computerSymbol = "O";
+var playerSymbol;
+var computerSymbol;
 var turnsLeft = 9;
 var board = ["E", "E", "E",
              "E", "E", "E", 
@@ -58,7 +58,7 @@ function tie() {
 
 function minimax() {
   var move;
-  mmRecursive(board, "X", 0);
+  mmRecursive(board, playerSymbol, 0);
   board[move] = computerSymbol;
 
   function mmRecursive(tempBoard, tempPlayer, currentDepth) {
@@ -201,6 +201,21 @@ function check(testBoard, place1, place2, place3) {
   }
 }
 
+function typeChoose(chooseString) {
+  setTimeout(function() {
+    $(".choose-text").append(chooseString[0]);
+    if (chooseString.slice(1) === "") {
+      setTimeout(function() {
+        $(".choose-x").removeClass("hidden");
+        $(".choose-o").removeClass("hidden");
+        return 1;
+      }, 400);
+    } else {
+      typeChoose(chooseString.slice(1));
+    }
+  }, 40);
+}
+
 function typeIntro(introString) {
   if (pageState === "intro") {
     if (introString[0] === "%") {
@@ -250,11 +265,22 @@ $(".intro").click(function() {
   pageState = "choose-symbol";
   $(this).addClass("hidden");
   $(".choose-symbol").removeClass("hidden");
+  typeChoose("CHOOSE YOUR SYMBOL:");
 });
 
-$(".choose-symbol").click(function() {
+$("#choose-x").click(function() {
+  playerSymbol = "X";
+  computerSymbol = "O";
   pageState = "game";
-  $(this).addClass("hidden");
+  $(".choose-symbol").addClass("hidden");
+  $(".board").removeClass("hidden");
+});
+
+$("#choose-o").click(function() {
+  playerSymbol = "O";
+  computerSymbol = "X";
+  pageState = "game";
+  $(".choose-symbol").addClass("hidden");
   $(".board").removeClass("hidden");
 });
 

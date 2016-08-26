@@ -77,6 +77,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: #000E1B;
+  cursor: pointer;
 }
 
 .intro-container {
@@ -99,6 +100,7 @@ body {
 }
 
 .choose-symbol-container {
+  position: relative;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -106,6 +108,39 @@ body {
   font-size: 1.5em;
   line-height: 1.4em;
   color: #70CAEB;
+  text-align: center;
+}
+
+.choose-x {
+  cursor: pointer;
+  width: 37%;
+  background: transparent;
+  background-image: url("x.svg");
+  background-repeat: no-repeat;
+  border: none;
+  padding: 1%;
+  padding-bottom: 33%;
+  margin-right: 4%;
+  margin-top: 80px;
+}
+
+.choose-o {
+  cursor: pointer;
+  width: 37%;
+  background: transparent;
+  background-image: url("o.svg");
+  background-repeat: no-repeat;
+  border: none;
+  padding: 1%;
+  padding-bottom: 33%;
+  margin-left: 4%;
+  margin-top: 80px;
+}
+
+.choose-text {
+  position: absolute;
+  left: 20px;
+  top: 50px;
 }
 
 .hidden {
