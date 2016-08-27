@@ -115,24 +115,34 @@ function winScreen(who) {
   $(".win-screen-container").text("");
   var quips = [];
   if (who === "computer") {
-    quips = ["I WIN. :)", "HOW ABOUT A NICE GAME OF CHESS?", "PROFESSOR FALKEN...^I DO DECLARE!", "MATTHEW BRODERICK^WOULD BE DISAPPOINTED.", "THIS IS GETTING EASIER.", "HOW ABOUT GLOBAL^THERMONUCLEAR WAR?", "I ALWAYS PREFERRED DIGITAL^INTELLIGENCE OVER ANALOGUE."];
+    quips = ["HOW ABOUT A NICE GAME OF CHESS?", "PROFESSOR FALKEN...^I DO DECLARE!", "MATTHEW BRODERICK^WOULD BE DISAPPOINTED.", "THIS IS GETTING EASIER.", "HOW ABOUT GLOBAL^THERMONUCLEAR WAR?", "I ALWAYS PREFERRED DIGITAL^INTELLIGENCE OVER ANALOGUE."];
   } else if (who === "tie"){
-    quips = ["NICE TRY. :P", "A TIE. HOW REMARKABLE.", "PERHAPS ANOTHER GAME?", "THIS IS GETTING BORING.", "GREETINGS PROFESSOR FALKEN", "USER PASSWORD: pencil", "PERHAPS YOU SHOULD TRY^STRATEGY: WINNING"];
+    quips = ["NICE TRY.^^SERIOUSLY.", "REMARKABLE.", "PERHAPS ANOTHER GAME?", "THIS IS GETTING BORING.", "GREETINGS PROFESSOR FALKEN", "USER PASSWORD: pencil", "PERHAPS YOU SHOULD TRY^STRATEGY: WINNING"];
   }
   var quip = quips[Math.floor(Math.random()*quips.length)];
   $(".board").addClass("hidden");
   $(".win-screen").removeClass("hidden");
-  typeWinScreen(quip);
+  typeWinScreen(((who === "computer") ? "I WIN:^^" : "STALEMATE:^^") + quip);
 }
 
 function computerWin() {
-  winScreen("computer");
-  pageState = "game";
+  updateBoard();
+  var svgName = getMarkSvg();
+  console.log(svgName);
+  $(".win-mark").css("background-image", "url('winlines/" + svgName + ".svg')");
+  $(".win-mark").removeClass("hidden");
+  setTimeout(function() {
+    $(".win-mark").addClass("hidden");
+    winScreen("computer");
+    pageState = "game";
+  }, 1000);
 }
 
 function tieWin() {
-  winScreen("tie");
-  pageState = "game";
+  setTimeout(function() {
+    winScreen("tie");
+    pageState = "game";
+  }, 1000);
 }
 
 function playerWin() {
@@ -170,6 +180,31 @@ function updateBoard () {
   });
 }
 
+function getMarkSvg() {
+  var winStates = [[0,1,2], [3,4,5], [6,7,8],
+                   [0,3,6], [1,4,7], [2,5,8],
+                   [0,4,8], [2,4,6]];
+  var winner;
+
+  for (var i = 0; i < winStates.length; i++) {
+    winner = check(board, winStates[i][0], winStates[i][1], winStates[i][2]);
+    if (winner !== "E"){
+      winState = winStates[i];
+    }
+  }
+
+  switch(winState) {
+    case (winStates[0]): return "ht"; break;
+    case (winStates[1]): return "hm"; break;
+    case (winStates[2]): return "hb"; break;
+    case (winStates[3]): return "vl"; break;
+    case (winStates[4]): return "vm"; break;
+    case (winStates[5]): return "vr"; break;
+    case (winStates[6]): return "bs"; break;
+    case (winStates[7]): return "fs"; break;
+  }
+}
+
 function win(testBoard) {
   var winStates = [[0,1,2], [3,4,5], [6,7,8],
                    [0,3,6], [1,4,7], [2,5,8],
@@ -197,40 +232,41 @@ function check(testBoard, place1, place2, place3) {
 function typeWinScreen(winString) {
   if (winString[0] === "^") {
     $(".win-screen-container").append("<br>");
-    winString = winString.slice(1);
-  }
-  if (winString[0] === "$") {
-    setTimeout(function() {
-      $(".win-screen").addClass("hidden");
-      $(".board").removeClass("hidden");
-    }, 1000);
-    return;
-  }
-  setTimeout(function() {
-    $(".win-screen-container").append(winString[0]);
-    if (winString.slice(1) === "") {
+    typeWinScreen(winString.slice(1));
+  } else {
+    if (winString[0] === "$") {
       setTimeout(function() {
-        $(".win-screen-container").append("<br><br><br><br>");
-        board = ["E", "E", "E",
-                 "E", "E", "E", 
-                 "E", "E", "E"];
-        if (whoWentFirst === "player") {
-          whoWentFirst = "computer)";
-          currentPlayer = "computer";
-          typeWinScreen("MY TURN!$");
-          board[Math.floor(Math.random()*9)] = computerSymbol;
-        } else {
-          whoWentFirst = "player";
-          typeWinScreen("YOUR TURN!$");
-        }
-        currentPlayer = "player";
-        updateBoard();
-      }, 400);
+        $(".win-screen").addClass("hidden");
+        $(".board").removeClass("hidden");
+      }, 1000);
       return;
-    } else {
-      typeWinScreen(winString.slice(1));
     }
-  }, 40);
+    setTimeout(function() {
+      $(".win-screen-container").append(winString[0]);
+      if (winString.slice(1) === "") {
+        setTimeout(function() {
+          $(".win-screen-container").append("<br><br><br><br>");
+          board = ["E", "E", "E",
+                  "E", "E", "E", 
+                  "E", "E", "E"];
+          if (whoWentFirst === "player") {
+            whoWentFirst = "computer)";
+            currentPlayer = "computer";
+            typeWinScreen("MY TURN!$");
+            board[Math.floor(Math.random()*9)] = computerSymbol;
+          } else {
+            whoWentFirst = "player";
+            typeWinScreen("YOUR TURN!$");
+          }
+          currentPlayer = "player";
+          updateBoard();
+        }, 400);
+        return;
+      } else {
+        typeWinScreen(winString.slice(1));
+      }
+    }, 40);
+  }
 }
 
 function typeChoose(chooseString) {
