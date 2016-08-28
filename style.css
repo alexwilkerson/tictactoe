@@ -38,6 +38,7 @@ body {
   background-image: url("board.svg");
   background-repeat: no-repeat;
   justify-content: space-between;
+  padding-top: 1%;
 }
 
 .o {
@@ -50,7 +51,7 @@ body {
   padding: 1%;
   padding-bottom: 33%;
   flex-grow: 1;
-  margin: 1% 3% 0 3%;
+  margin: 0 3%;
 }
 
 .x {
@@ -63,7 +64,7 @@ body {
   padding: 1%;
   padding-bottom: 33%;
   flex-grow: 1;
-  margin: 1% 3% 0 3%;
+  margin: 0 3%;
 }
 
 .e {
@@ -75,7 +76,7 @@ body {
   padding: 1%;
   padding-bottom: 33%;
   flex-grow: 1;
-  margin: 1% 3% 0 3%;
+  margin: 0 3%;
 }
 
 .place:focus {
