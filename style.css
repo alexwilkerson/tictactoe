@@ -42,6 +42,7 @@ body {
 
 .o {
   width: 27%;
+  height: 0;
   background: transparent;
   background-image: url("o.svg");
   background-repeat: no-repeat;
@@ -54,6 +55,7 @@ body {
 
 .x {
   width: 27%;
+  height: 0;
   background: transparent;
   background-image: url("x.svg");
   background-repeat: no-repeat;
@@ -68,6 +70,7 @@ body {
   cursor: pointer;
   background: transparent;
   width: 27%;
+  height: 0;
   border: none;
   padding: 1%;
   padding-bottom: 33%;
