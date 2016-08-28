@@ -137,6 +137,10 @@ body {
   margin-top: 80px;
 }
 
+.choose-x:focus {
+  outline: none;
+}
+
 .choose-o {
   cursor: pointer;
   width: 37%;
@@ -148,6 +152,10 @@ body {
   padding-bottom: 33%;
   margin-left: 4%;
   margin-top: 80px;
+}
+
+.choose-o:focus {
+  outline: none;
 }
 
 .choose-text {
